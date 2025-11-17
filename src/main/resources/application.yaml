@@ -1,0 +1,10 @@
+server:
+  port: 8080
+
+alcatraz:
+  self:
+    name: Alice
+  players:
+    Bob: "http://localhost:8081"
+    Martin: "http://localhost:8082"
+    Thomas: "http://localhost:8083"
