@@ -1,10 +1,16 @@
+spring:
+  main:
+    headless: false    # WICHTIG für Swing UI
+
 server:
-  port: 8080
+  port: 9000           # REST-Callback dieses Clients
 
 alcatraz:
   self:
-    name: Alice
-  players:
-    Bob: "http://localhost:8081"
-    Martin: "http://localhost:8082"
-    Thomas: "http://localhost:8083"
+    name: "Alice"
+    callbackBaseUrl: "http://localhost:9000"
+  registry:
+    nodes:
+      - "http://localhost:8080"
+      - "http://localhost:8081"
+      - "http://localhost:8082"
