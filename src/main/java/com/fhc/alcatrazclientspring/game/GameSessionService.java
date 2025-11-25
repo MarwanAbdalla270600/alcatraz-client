@@ -4,6 +4,7 @@ import at.falb.games.alcatraz.api.Alcatraz;
 import at.falb.games.alcatraz.api.MoveListener;
 import at.falb.games.alcatraz.api.Player;
 import at.falb.games.alcatraz.api.Prisoner;
+import com.fhc.alcatrazclientspring.ClientApplication;
 import com.fhc.alcatrazclientspring.config.ClientConfig;
 import com.fhc.alcatrazclientspring.game.PlayerMoveService;
 import com.fhc.alcatrazclientspring.net.PlayerDirectory;
@@ -19,7 +20,7 @@ import java.util.Map;
 @Service
 public class GameSessionService {
 
-    private Alcatraz game;   // nicht final, nicht injected!
+    private final Alcatraz game = ClientApplication.GAME;
     private final ClientConfig config;
     private final PlayerDirectory dir;
     private final PlayerMoveService moveService;
@@ -52,8 +53,6 @@ public class GameSessionService {
         // GUI IM EDT ERZEUGEN!
         SwingUtilities.invokeLater(() -> {
             try {
-                game = new Alcatraz();   // ← HIER MUSS ES SEIN!
-
                 game.init(n, myId);
 
                 for (int i = 0; i < players.size(); i++) {
