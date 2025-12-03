@@ -29,6 +29,9 @@ public class LobbyCli implements CommandLineRunner {
             if (line.equalsIgnoreCase("start")) {
                 reg.requestStart();
             }
+            if (line.equalsIgnoreCase("unregister")) {
+                reg.requestUnregister();
+            }
         }
     }
 }

@@ -15,4 +15,12 @@ public class PlayerInfo {
 
     public void setPlayerName(String playerName) { this.playerName = playerName; }
     public void setCallbackUrl(String callbackUrl) { this.callbackUrl = callbackUrl; }
+
+    @Override
+    public String toString() {
+        return "PlayerInfo{" +
+                "playerName='" + playerName + '\'' +
+                ", callbackUrl='" + callbackUrl + '\'' +
+                '}';
+    }
 }

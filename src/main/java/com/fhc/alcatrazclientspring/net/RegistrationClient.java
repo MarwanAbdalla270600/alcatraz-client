@@ -35,4 +35,12 @@ public class RegistrationClient {
         restTemplate.postForEntity(url, null, Void.class);
         System.out.println("Requested game start.");
     }
+
+    public void requestUnregister() {
+        String name = config.getSelf().getName();
+        String url = getRegistryNode() + "/players/unregister/" + name;
+        restTemplate.delete(url);
+        System.out.println("Unregistered.");
+        System.exit(0);
+    }
 }
