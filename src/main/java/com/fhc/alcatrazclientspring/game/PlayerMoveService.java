@@ -64,7 +64,7 @@ public class PlayerMoveService {
 
     private boolean isOnline(String baseUrl) {
         try {
-            rest.getForEntity(baseUrl + "/health", Void.class);
+            rest.postForEntity(baseUrl + "/health", null, Void.class);
             return true;
         } catch (Exception e) {
             return false;

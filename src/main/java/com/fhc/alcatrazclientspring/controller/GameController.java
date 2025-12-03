@@ -53,7 +53,7 @@ public class GameController {
     public GameStateDTO state(@RequestParam int fromTurn) {
         return new GameStateDTO(local.getMissing(fromTurn));
     }
-    @GetMapping("/health")
+    @PostMapping("/health")
     public ResponseEntity<Void> health() {
         return ResponseEntity.ok().build();
     }

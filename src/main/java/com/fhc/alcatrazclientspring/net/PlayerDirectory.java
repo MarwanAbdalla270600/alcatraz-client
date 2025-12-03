@@ -1,10 +1,7 @@
 package com.fhc.alcatrazclientspring.net;
 
 import org.springframework.stereotype.Component;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Component
 public class PlayerDirectory {
@@ -14,17 +11,17 @@ public class PlayerDirectory {
 
     private final Map<String, String> players = new HashMap<>();
 
-    public void updatePlayers(Map<String, String> newPlayers, String selfName, String selfUrl) {
+    public void updatePlayers(Map<String, String> others, String selfName, String selfUrl) {
         this.selfName = selfName;
-        this.selfUrl  = selfUrl;
+        this.selfUrl = selfUrl;
 
         players.clear();
 
-        // alle vom Server
-        players.putAll(newPlayers);
-
-        // self *manuell* hinzufügen (Server sendet ihn NICHT!)
+        // eigene URL hinzufügen
         players.put(selfName, selfUrl);
+
+        // andere Spieler hinzufügen
+        players.putAll(others);
     }
 
     public int getTotalPlayers() {
@@ -45,9 +42,9 @@ public class PlayerDirectory {
         return players.get(name);
     }
 
-    public Map<String,String> getOtherPlayers() {
-        Map<String,String> m = new HashMap<>(players);
-        m.remove(selfName);
-        return m;
+    public Map<String, String> getOtherPlayers() {
+        Map<String, String> others = new HashMap<>(players);
+        others.remove(selfName);
+        return others;
     }
 }
