@@ -1,0 +1,1 @@
+java -jar alcatraz.jar --spring.config.location=file:./bob.yaml
