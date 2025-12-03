@@ -57,4 +57,17 @@ public class GameController {
     public ResponseEntity<Void> health() {
         return ResponseEntity.ok().build();
     }
+
+    @PostMapping("/event/disconnected")
+    public ResponseEntity<Void> disconnected(@RequestBody String name) {
+        System.out.println("Spieler " + name + " ist offline.");
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/event/reconnected")
+    public ResponseEntity<Void> reconnected(@RequestBody String name) {
+        System.out.println("Spieler " + name + " ist wieder online.");
+        return ResponseEntity.ok().build();
+    }
+
 }

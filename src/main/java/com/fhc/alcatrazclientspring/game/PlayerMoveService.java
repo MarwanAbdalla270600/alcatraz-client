@@ -36,30 +36,40 @@ public class PlayerMoveService {
                 col
         );
 
-        // eigenen Zug broadcasten
         broadcaster.broadcast(move);
 
-        // warten, bis nächster Spieler online ist
-        waitForNextPlayerIfOffline();
+        waitUntilCurrentPlayerOnline();
     }
 
-    private void waitForNextPlayerIfOffline() {
-        int turn = counter.current();
-        int totalPlayers = directory.getTotalPlayers();
+    private void waitUntilCurrentPlayerOnline() {
 
-        if (totalPlayers == 0) return; // Sicherheit
+        while (true) {
+            int turn = counter.current();
+            int idx = turn % directory.getTotalPlayers();
 
-        int nextPlayerIndex = turn % totalPlayers;
+            String player = directory.getSortedPlayers().get(idx);
+            String url = directory.getPlayerUrl(player);
 
-        String nextPlayer = directory.getPlayerName(nextPlayerIndex);
-        String nextUrl    = directory.getPlayerUrl(nextPlayer);
+            // Spieler erreichbar?
+            if (isOnline(url)) {
 
-        while (!isOnline(nextUrl)) {
-            System.out.println("Warte auf Spieler " + nextPlayer + "...");
+                // wenn vorher offline → reconnect event
+                if (!directory.isOnline(player)) {
+                    directory.markOnline(player);
+                    broadcaster.broadcastReconnected(player);
+                }
+                return; // weiter spielen
+            }
+
+            // Spieler jetzt offline geworden?
+            if (directory.isOnline(player)) {
+                directory.markOffline(player);
+                broadcaster.broadcastDisconnected(player);
+            }
+
+            System.out.println("Warte auf Spieler " + player + "...");
             try { Thread.sleep(1500); } catch (Exception ignored) {}
         }
-
-        System.out.println("Spieler " + nextPlayer + " ist wieder online.");
     }
 
     private boolean isOnline(String baseUrl) {

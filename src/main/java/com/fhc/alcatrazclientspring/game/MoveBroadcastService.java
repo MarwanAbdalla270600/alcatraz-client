@@ -29,4 +29,20 @@ public class MoveBroadcastService {
             } catch (Exception ignored) {}
         }
     }
+
+    public void broadcastDisconnected(String name) {
+        for (Map.Entry<String, String> e : directory.getOtherPlayers().entrySet()) {
+            try {
+                rest.postForEntity(e.getValue() + "/event/disconnected", name, Void.class);
+            } catch (Exception ignored) {}
+        }
+    }
+
+    public void broadcastReconnected(String name) {
+        for (Map.Entry<String, String> e : directory.getOtherPlayers().entrySet()) {
+            try {
+                rest.postForEntity(e.getValue() + "/event/reconnected", name, Void.class);
+            } catch (Exception ignored) {}
+        }
+    }
 }
