@@ -143,3 +143,5 @@ Dieses Projekt ist ein vollständig verteilter Multiplayer-Client, der:
 - einfach per YAML konfiguriert wird
 
 *Du musst nichts am Code ändern – nur die YAML anpassen und das JAR starten.*
+
+java -jar alcatraz.jar --spring.config.location=file:./bob.yaml
